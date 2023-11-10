@@ -49,14 +49,18 @@ fn insert_last_at(slice: &mut [isize],index: usize){
 
 fn run_n_sorts_size_m(n:usize,m:usize) -> Duration {
     let mut total_time: Duration = Duration::from_nanos(0);
-    for _i in 0..n{
+    for tests in 0..n{
+        print!("gen data for {:?} out of {:?}; ",tests+1,n);
         let mut test_ary: Vec<isize> = Vec::with_capacity(m);
         for _i in 0..m{
             test_ary.push(rand::random());
         };
+        println!("timing; ");
         let now = Instant::now();
         insertion_sort(&mut test_ary);
-        total_time = total_time + now.elapsed()
+        total_time = total_time + now.elapsed();
+        println!("done");
+        println!("current average: {:?}",total_time/((tests+1).try_into().unwrap()));
     }
     return total_time/(n.try_into().unwrap());
 }
@@ -67,7 +71,7 @@ fn main() {
     // // println!("found index {:?}",index);
     // insertion_sort(&mut my_array);
     // println!("{:?}",my_array);
-    println!("{:?}", run_n_sorts_size_m(1,1000));
+    println!("average time: {:?}", run_n_sorts_size_m(100,100_000));
 }
 
 #[cfg(test)]
