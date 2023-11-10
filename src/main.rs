@@ -1,3 +1,5 @@
+use std::time::{Duration, Instant};
+
 fn insertion_sort(array: &mut [isize]){
     // for each element in the array
     for i in 1..(array.len()){
@@ -45,12 +47,27 @@ fn insert_last_at(slice: &mut [isize],index: usize){
     slice[j] = value;
 }
 
+fn run_n_sorts_size_m(n:usize,m:usize) -> Duration {
+    let mut total_time: Duration = Duration::from_nanos(0);
+    for _i in 0..n{
+        let mut test_ary: Vec<isize> = Vec::with_capacity(m);
+        for _i in 0..m{
+            test_ary.push(rand::random());
+        };
+        let now = Instant::now();
+        insertion_sort(&mut test_ary);
+        total_time = total_time + now.elapsed()
+    }
+    return total_time/(n.try_into().unwrap());
+}
+
 fn main() {
-    let mut my_array = [1,2,4,6,10,-10];
-    // let index = bi_find_insert_index(&my_array, 3);
-    // println!("found index {:?}",index);
-    insertion_sort(&mut my_array);
-    println!("{:?}",my_array);
+    // let mut my_array = [1,2,4,6,10,-10];
+    // // let index = bi_find_insert_index(&my_array, 3);
+    // // println!("found index {:?}",index);
+    // insertion_sort(&mut my_array);
+    // println!("{:?}",my_array);
+    println!("{:?}", run_n_sorts_size_m(1,1000));
 }
 
 #[cfg(test)]
