@@ -17,12 +17,12 @@ pub fn sort(array: &[isize], sub_ary_len: usize) -> Vec<isize> {
         }
         sub_ary_vec.push(array[(i*sub_ary_len)..slice_end].to_vec());
     }
-    println!("{:?}",sub_ary_vec);
+    // println!("{:?}",sub_ary_vec);
     // sorting each vector
     for i in 0..sub_ary_amt{
         insertion_sort::sort(&mut sub_ary_vec[i]);
     }
-    println!("{:?}",sub_ary_vec);
+    // println!("{:?}",sub_ary_vec);
     
     // merging each vector to the out vector
     let mut merging_vec: Vec<Vec<isize>> = sub_ary_vec;
@@ -35,7 +35,7 @@ pub fn sort(array: &[isize], sub_ary_len: usize) -> Vec<isize> {
                 tmp_mergin_vec.push(merging_vec[i].to_vec());
             }
         }
-        println!("{:?}", tmp_mergin_vec);
+        // println!("{:?}", tmp_mergin_vec);
         merging_vec = tmp_mergin_vec;
     }
     return merging_vec[0].to_vec();
