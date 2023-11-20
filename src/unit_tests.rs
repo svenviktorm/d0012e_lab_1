@@ -2,14 +2,13 @@ use rand::{self, Rng};
 use crate::{insertion_sort, mod_merge_sort};
 
 
-
 #[test]
 fn one_element_array(){
     for _i in 0..1000{
         let x: isize = rand::random();
         let mut test_ary = [x];
         let test_ary_copy= [x]; 
-        insertion_sort(&mut test_ary);
+        insertion_sort::sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
     }
 
@@ -27,7 +26,7 @@ fn allready_sorted(){
         };
         test_ary.sort();
         test_ary_copy.sort();
-        insertion_sort(&mut test_ary);
+        insertion_sort::sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
     }
 }
@@ -43,7 +42,7 @@ fn array_testing_n10(){
             test_ary_copy[i] = x;
         };
         test_ary_copy.sort();
-        insertion_sort(&mut test_ary);
+        insertion_sort::sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
     }
 }
@@ -58,7 +57,7 @@ fn works_with_vec_n10(){
         };
         test_ary_copy = test_ary.to_vec();
         test_ary_copy.sort();
-        insertion_sort(&mut test_ary);
+        insertion_sort::sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
     }
 }
@@ -74,7 +73,7 @@ fn works_with_random_vec_len(){
         };
         test_ary_copy = test_ary.to_vec();
         test_ary_copy.sort();
-        insertion_sort(&mut test_ary);
+        insertion_sort::sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
     }
 }
@@ -90,7 +89,6 @@ fn mod_merge_works_with_random_vec_len(){
         };
         test_ary_merge = mod_merge_sort(&test_ary, 3);
         test_ary.sort();
-        insertion_sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_merge)
     }
 }
