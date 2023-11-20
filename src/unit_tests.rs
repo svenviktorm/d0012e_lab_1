@@ -87,7 +87,7 @@ fn mod_merge_works_with_random_vec_len(){
         for _i in 0..n{
             test_ary.push(rand::random());
         };
-        test_ary_merge = mod_merge_sort(&test_ary, 3);
+        test_ary_merge = mod_merge_sort::sort(&test_ary, 3);
         test_ary.sort();
         assert_eq!(test_ary,test_ary_merge)
     }
