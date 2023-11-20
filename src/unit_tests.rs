@@ -1,5 +1,5 @@
 use rand::{self, Rng};
-use crate::insertion_sort;
+use crate::{insertion_sort, mod_merge_sort};
 
 
 
@@ -76,5 +76,21 @@ fn works_with_random_vec_len(){
         test_ary_copy.sort();
         insertion_sort(&mut test_ary);
         assert_eq!(test_ary,test_ary_copy)
+    }
+}
+
+#[test]
+fn mod_merge_works_with_random_vec_len(){
+    for _i in 0..1000{
+        let n: usize = rand::thread_rng().gen_range(1..100);
+        let mut test_ary: Vec<isize> = Vec::with_capacity(n);
+        let mut test_ary_merge: Vec<isize>; 
+        for _i in 0..n{
+            test_ary.push(rand::random());
+        };
+        test_ary_merge = mod_merge_sort(&test_ary, 3);
+        test_ary.sort();
+        insertion_sort(&mut test_ary);
+        assert_eq!(test_ary,test_ary_merge)
     }
 }
