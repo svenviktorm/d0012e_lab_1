@@ -83,7 +83,7 @@ fn mod_merge_works_with_random_vec_len(){
     for _i in 0..1000{
         let n: usize = rand::thread_rng().gen_range(1..100);
         let mut test_ary: Vec<isize> = Vec::with_capacity(n);
-        let mut test_ary_merge: Vec<isize>; 
+        let test_ary_merge: Vec<isize>; 
         for _i in 0..n{
             test_ary.push(rand::random());
         };
