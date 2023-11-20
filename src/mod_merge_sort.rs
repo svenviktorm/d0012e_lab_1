@@ -25,11 +25,20 @@ pub fn sort(array: &[isize], sub_ary_len: usize) -> Vec<isize> {
     println!("{:?}",sub_ary_vec);
     
     // merging each vector to the out vector
-    let mut out: Vec<isize> = vec![];
-    for i in sub_ary_vec{
-        out = merge_sorted_vectors(&out, &i)
+    let mut merging_vec: Vec<Vec<isize>> = sub_ary_vec;
+    while merging_vec.len() > 1{
+        let mut tmp_mergin_vec: Vec<Vec<isize>> =Vec::with_capacity((sub_ary_amt/2)+1);
+        for i in (0..merging_vec.len()).step_by(2) {
+            if i+1 < merging_vec.len(){
+                tmp_mergin_vec.push(merge_sorted_vectors(&merging_vec[i], &merging_vec[i+1]))
+            } else {
+                tmp_mergin_vec.push(merging_vec[i].to_vec());
+            }
+        }
+        println!("{:?}", tmp_mergin_vec);
+        merging_vec = tmp_mergin_vec;
     }
-    return out;
+    return merging_vec[0].to_vec();
 }
 
 
