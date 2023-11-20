@@ -2,7 +2,7 @@ use std::{time::{Duration, Instant}, fs::File, io::prelude::*};
 mod insertion_sort;
 mod mod_merge_sort;
 
-fn time_n_merge_sorts_size_m(n:u32,m:usize) -> Duration {
+fn time_n_merge_sorts_size_m(n:u32,m:usize,k: usize) -> Duration {
     let mut total_time: Duration = Duration::from_nanos(0);
     for _tests in 0..n{
         // print!("gen data for {:?} out of {:?}; ",tests+1,n);
@@ -12,7 +12,7 @@ fn time_n_merge_sorts_size_m(n:u32,m:usize) -> Duration {
         };
         // println!("timing; ");
         let now = Instant::now();
-        mod_merge_sort::sort(& test_ary,10);
+        mod_merge_sort::sort(& test_ary,k);
         total_time = total_time + now.elapsed();
         // println!("done");
         // println!("current average: {:?}",total_time/(tests+1));
@@ -48,12 +48,27 @@ fn main() {
     // println!("{:?}",my_array);
     let mut data_file = File::create("data.csv").unwrap();
     _ = data_file.write(b"n, time_ins, time_merge\n");
-    for i in 1..=1000{
-        let time_ins: Duration = time_n_ins_sorts_size_m(100, i*1000);
-        let time_merge: Duration = time_n_merge_sorts_size_m(100, i*1000);
-        let formated_string: String = format!("{}, {:?}, {:?}\n",i*1000,time_ins,time_merge);
+    for i in 1..=50{
+        let time_merge_div_1: Duration = time_n_merge_sorts_size_m(100, i*2000,100);
+        let time_merge_div_2: Duration = time_n_merge_sorts_size_m(100, i*2000,75);
+        let time_merge_div_4: Duration = time_n_merge_sorts_size_m(100, i*2000,50);
+        let time_merge_div_8: Duration = time_n_merge_sorts_size_m(100, i*2000,25);
+        let time_merge_div_32: Duration = time_n_merge_sorts_size_m(100, i*2000,12);
+        let time_merge_16: Duration = time_n_merge_sorts_size_m(100, i*2000,1);
+        let formated_string: String = format!("{}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}\n",
+                                              i*1000,
+                                              time_merge_div_1,
+                                              time_merge_div_2,
+                                              time_merge_div_4,
+                                              time_merge_div_8,
+                                              time_merge_div_32,
+                                              time_merge_16);
         _ = data_file.write(formated_string.as_bytes());
     }
+
+    // for i in 1..=100{
+    //     println!("n = 10 000, k={}, time = {:?}",i,time_n_merge_sorts_size_m(10, 10000, i))
+    // }
     // let mut test = [1,-1,5,4,2,3,-2];
     // let sorted = mod_merge_sort::sort(&test, 4);
     // println!("{:?}",sorted)
