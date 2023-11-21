@@ -15,7 +15,7 @@ fn one_element_array(){
 }
 
 #[test]
-fn allready_sorted(){
+fn already_sorted(){
     for _i in 0..1000{
         let mut test_ary: [isize; 10] = [0; 10];
         let mut test_ary_copy: [isize; 10]= [0; 10]; 

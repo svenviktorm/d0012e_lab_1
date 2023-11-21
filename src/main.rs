@@ -30,22 +30,22 @@ fn main() {
     // Create folder for data
     _ = fs::create_dir_all(Path::new(file_path_name).parent().unwrap());
     
-    // run test for 100, creating 100 csv files
-    for i in 0..100{
+    // run test for 10, creating 10 csv files
+    for i in 0..10{
         // create file
         let mut data_file = File::create(format!("{}.{}.csv",file_path_name,i)).unwrap();
         // write header
         _ = data_file.write(b"n, k, time\n");
-        // test for n 1000 to 100_000 with a step of 1000
+        // test for n 1000 to 50_000 with a step of 1000
         // example n=1000, n=2000, n=3000
-        for n in (1000..=100_000).step_by(1000){
-            // test k values of 1 uppto 25
+        for n in (1000..=50_000).step_by(1000){
+            // test k values of 1 upp to 25
             for k in 1..=25{
-                // run timming test 100 times and take avarege
+                // run timing test 100 times and take average
                 let avg_time: Duration = time_n_merge_sorts_size_m(100, n, k);
-                // wire {n}, {k} {avrage time} to file
-                let formated_string: String = format!("{}, {}, {:?}\n", n, k, avg_time);
-                _ = data_file.write(formated_string.as_bytes());
+                // wire {n}, {k} {average time} to file
+                let formatted_string: String = format!("{}, {}, {:?}\n", n, k, avg_time);
+                _ = data_file.write(formatted_string.as_bytes());
             }
 
         }
