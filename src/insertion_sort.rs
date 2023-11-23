@@ -4,7 +4,19 @@ pub fn sort(array: &mut [isize]){
         // find insertion index of array[i] in slice 0..i
         let index = bi_find_insert_index(&array[0..i],array[i]);
         // insert the value, slice includes index i
-        insert_last_at(&mut array[0..=i], index)
+        (&mut array[0..=i], index)
+    }
+}
+
+pub fn wrongSort(array: &mut [isize]){
+    // for each element in the array
+    for i in 1..(array.len()){
+        // find insertion index of array[i] in slice 0..i
+        let index = bi_find_insert_index(&array[0..i],array[i]);
+        // insert the value, slice includes index i
+        temp = array[size]
+        array[size] = array[index]
+        array[index] = temp
     }
 }
 
